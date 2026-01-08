@@ -16,13 +16,13 @@ const Sidebar = () => {
                 <h2 className="text-2xl font-bold text-blue-400">Hospital CMS</h2>
             </div>
 
-            <nav className="flex-1 p-4 space-y-2">
-                <Link to="/" className={`flex items-center space-x-3 px-4 py-3 rounded hover:bg-slate-700 transaction ${isActive('/') ? 'bg-blue-600' : ''}`}>
+            <nav className="flex-1 p-2 space-y-1">
+                <Link to="/" className={`flex items-center space-x-3 px-4 py-1 rounded hover:bg-slate-700 transaction ${isActive('/') ? 'bg-blue-600' : ''}`}>
                     <FaHome /> <span>Dashboard</span>
                 </Link>
 
                 {user?.role === 'Super Admin' && (
-                     <Link to="/super-admin" className={`flex items-center space-x-3 px-4 py-3 rounded hover:bg-slate-700 transaction ${isActive('/super-admin') ? 'bg-blue-600' : ''}`}>
+                     <Link to="/super-admin" className={`flex items-center space-x-3 px-4 py-1 rounded hover:bg-slate-700 transaction ${isActive('/super-admin') ? 'bg-blue-600' : ''}`}>
                         <FaUserMd /> <span>Super Admin</span>
                     </Link>
                 )}
@@ -30,7 +30,7 @@ const Sidebar = () => {
                 <div>
                     <button 
                         onClick={() => setPatientMenuOpen(!patientMenuOpen)}
-                        className="w-full flex items-center justify-between px-4 py-3 rounded hover:bg-slate-700 transition"
+                        className="w-full flex items-center justify-between px-4 py-1 rounded hover:bg-slate-700 transition"
                     >
                         <div className="flex items-center space-x-3">
                             <FaUserMd /> <span>Patient Registration</span>
@@ -40,27 +40,27 @@ const Sidebar = () => {
                     
                     {patientMenuOpen && (
                         <div className="ml-8 mt-1 space-y-1">
-                            <Link to="/patient/register" className={`flex items-center space-x-3 px-4 py-2 text-sm rounded hover:bg-slate-700 ${isActive('/patient/register') ? 'text-blue-300' : 'text-gray-300'}`}>
+                            <Link to="/patient/register" className={`flex items-center space-x-3 px-4 py-1 text-sm rounded hover:bg-slate-700 ${isActive('/patient/register') ? 'text-blue-300' : 'text-gray-300'}`}>
                                 <FaUserPlus /> <span>Quick Registration</span>
                             </Link>
-                            <Link to="/patient/edit" className={`flex items-center space-x-3 px-4 py-2 text-sm rounded hover:bg-slate-700 ${isActive('/patient/edit') ? 'text-blue-300' : 'text-gray-300'}`}>
+                            <Link to="/patient/edit" className={`flex items-center space-x-3 px-4 py-1 text-sm rounded hover:bg-slate-700 ${isActive('/patient/edit') ? 'text-blue-300' : 'text-gray-300'}`}>
                                 <FaUserEdit /> <span>Edit Patient</span>
                             </Link>
                         </div>
                     )}
                 </div>
 
-                <Link to="/opd" className={`flex items-center space-x-3 px-4 py-3 rounded hover:bg-slate-700 transaction ${isActive('/opd') ? 'bg-blue-600' : ''}`}>
+                <Link to="/opd" className={`flex items-center space-x-3 px-4 py-1 rounded hover:bg-slate-700 transaction ${isActive('/opd') ? 'bg-blue-600' : ''}`}>
                     <FaNotesMedical /> <span>OPD Registration</span>
                 </Link>
 
-                <Link to="/followup" className={`flex items-center space-x-3 px-4 py-3 rounded hover:bg-slate-700 transaction ${isActive('/followup') ? 'bg-blue-600' : ''}`}>
+                <Link to="/followup" className={`flex items-center space-x-3 px-4 py-1 rounded hover:bg-slate-700 transaction ${isActive('/followup') ? 'bg-blue-600' : ''}`}>
                     <FaUserMd /> <span>Follow-up</span>
                 </Link>
             </nav>
 
             <div className="p-4 border-t border-slate-700">
-                <button onClick={logout} className="flex items-center space-x-3 px-4 py-3 rounded hover:bg-red-600 w-full transition text-red-100 hover:text-white">
+                <button onClick={logout} className="flex items-center space-x-3 px-4 py-1 rounded hover:bg-red-600 w-full transition text-red-100 hover:text-white">
                     <FaSignOutAlt /> <span>Logout</span>
                 </button>
             </div>

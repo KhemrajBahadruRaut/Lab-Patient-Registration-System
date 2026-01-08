@@ -35,7 +35,7 @@ const Dashboard = () => {
     }, [date]);
 
     return (
-        <div className="p-8 space-y-6">
+        <div className="p-2 space-y-5">
             <div className="flex justify-between items-center">
                 <div>
                     <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
@@ -59,27 +59,27 @@ const Dashboard = () => {
 
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-lg shadow border-l-4 border-blue-500">
+                <div className="bg-white py-3 px-6 rounded-lg shadow border-l-1 border-blue-500">
                     <h3 className="text-gray-500 text-sm font-bold uppercase">New Patients</h3>
                     <p className="text-3xl font-bold text-gray-800 mt-2">{summary.total_patients}</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow border-l-4 border-green-500">
+                <div className="bg-white py-3 px-6 rounded-lg shadow border-l-1 border-green-500">
                     <h3 className="text-gray-500 text-sm font-bold uppercase">OPD Visits</h3>
                     <p className="text-3xl font-bold text-gray-800 mt-2">{summary.total_visits}</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow border-l-4 border-purple-500">
+                <div className="bg-white py-3 px-6 rounded-lg shadow border-l-1 border-purple-500">
                     <h3 className="text-gray-500 text-sm font-bold uppercase">Total Revenue</h3>
                     <p className="text-3xl font-bold text-gray-800 mt-2">Rs. {summary.total_revenue}</p>
                 </div>
             </div>
             
-            <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
+            <div className="bg-blue-50 px-6 py-4 rounded-lg border border-blue-100">
                 <h2 className="text-xl font-bold text-blue-800 mb-2">Quick Actions</h2>
                 <div className="flex space-x-4">
-                    <a href="/patient/register" className="bg-white text-blue-600 px-4 py-3 rounded shadow hover:bg-gray-50 font-semibold border">
+                    <a href="/patient/register" className="bg-white text-blue-600 px-2 py-1 shadow hover:bg-gray-50 font-semibold border">
                         + New Patient
                     </a>
-                    <a href="/opd" className="bg-white text-green-600 px-4 py-3 rounded shadow hover:bg-gray-50 font-semibold border">
+                    <a href="/opd" className="bg-white text-green-600 px-2 py-1 shadow hover:bg-gray-50 font-semibold border">
                         + OPD Registration
                     </a>
                 </div>
@@ -112,19 +112,19 @@ const Dashboard = () => {
                                 recentVisits.map((visit) => (
                                     <tr key={visit.id} className="hover:bg-gray-50">
                                         <td className="px-6 py-4 whitespace-nowrap text-sm">{new Date(visit.visit_date).toLocaleDateString()}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        <td className="px-6 py-2 whitespace-nowrap">
                                             <div className="text-sm font-medium text-gray-900">{visit.patient_name}</div>
                                             <div className="text-sm text-gray-500">{visit.patient_phone}</div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        <td className="px-6 py-2 whitespace-nowrap">
                                             <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${visit.visit_type === 'OPD' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
                                                 {visit.visit_type}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{visit.doctor_name || 'N/A'}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{visit.department_name || 'N/A'}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Rs. {visit.total_amount}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{visit.doctor_name || 'N/A'}</td>
+                                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">{visit.department_name || 'N/A'}</td>
+                                        <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">Rs. {visit.total_amount}</td>
+                                        <td className="px-6 py-2 whitespace-nowrap text-sm">
                                             <button
                                                 onClick={() => {
                                                     setSelectedVisit(visit);

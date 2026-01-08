@@ -12,17 +12,17 @@ const Sidebar = () => {
 
     return (
         <div className="bg-slate-800 text-white w-64 min-h-screen flex flex-col transition-all duration-300">
-            <div className="p-6 border-b border-slate-700">
-                <h2 className="text-2xl font-bold text-blue-400">Hospital CMS</h2>
+            <div className="p-4 mb-4 border-b border-slate-700">
+                <h3 className="text-2xl font-bold text-blue-400">Paschimanchal CMS</h3>
             </div>
 
-            <nav className="flex-1 p-2 space-y-1">
-                <Link to="/" className={`flex items-center space-x-3 px-4 py-1 rounded hover:bg-slate-700 transaction ${isActive('/') ? 'bg-blue-600' : ''}`}>
+            <nav className="flex-1 p-2 space-y-">
+                <Link to="/" className={`flex items-center space-x-3 px-4 py-2 rounded hover:bg-slate-700 transaction ${isActive('/') ? 'bg-blue-600' : ''}`}>
                     <FaHome /> <span>Dashboard</span>
                 </Link>
 
                 {user?.role === 'Super Admin' && (
-                     <Link to="/super-admin" className={`flex items-center space-x-3 px-4 py-1 rounded hover:bg-slate-700 transaction ${isActive('/super-admin') ? 'bg-blue-600' : ''}`}>
+                     <Link to="/super-admin" className={`flex items-center space-x-3 px-4 py-2 rounded hover:bg-slate-700 transaction ${isActive('/super-admin') ? 'bg-blue-600' : ''}`}>
                         <FaUserMd /> <span>Super Admin</span>
                     </Link>
                 )}
@@ -30,7 +30,7 @@ const Sidebar = () => {
                 <div>
                     <button 
                         onClick={() => setPatientMenuOpen(!patientMenuOpen)}
-                        className="w-full flex items-center justify-between px-4 py-1 rounded hover:bg-slate-700 transition"
+                        className="w-full flex items-center justify-between px-4 py-2 rounded hover:bg-slate-700 transition"
                     >
                         <div className="flex items-center space-x-3">
                             <FaUserMd /> <span>Patient Registration</span>
@@ -50,11 +50,11 @@ const Sidebar = () => {
                     )}
                 </div>
 
-                <Link to="/opd" className={`flex items-center space-x-3 px-4 py-1 rounded hover:bg-slate-700 transaction ${isActive('/opd') ? 'bg-blue-600' : ''}`}>
+                <Link to="/opd" className={`flex items-center space-x-3 px-4 py-2 rounded hover:bg-slate-700 transaction ${isActive('/opd') ? 'bg-blue-600' : ''}`}>
                     <FaNotesMedical /> <span>OPD Registration</span>
                 </Link>
 
-                <Link to="/followup" className={`flex items-center space-x-3 px-4 py-1 rounded hover:bg-slate-700 transaction ${isActive('/followup') ? 'bg-blue-600' : ''}`}>
+                <Link to="/followup" className={`flex items-center space-x-3 px-4 py-2 rounded hover:bg-slate-700 transaction ${isActive('/followup') ? 'bg-blue-600' : ''}`}>
                     <FaUserMd /> <span>Follow-up</span>
                 </Link>
             </nav>

@@ -53,83 +53,131 @@ const InvestigationSelector = ({ selectedTests, onTestsChange }) => {
     };
 
     return (
-        <div className="space-y-4">
-            <div className="relative">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Investigation Tests
-                </label>
-                <div className="relative">
-                    <input
-                        type="text"
-                        className="w-full p-2 border border-gray-300 rounded-md"
-                        placeholder="Search and select tests..."
-                        value={searchTerm}
-                        onChange={(e) => {
-                            setSearchTerm(e.target.value);
-                            setShowDropdown(true);
-                        }}
-                        onFocus={() => setShowDropdown(true)}
-                    />
-                    {showDropdown && filteredTests.length > 0 && (
-                        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
-                            {filteredTests.map(test => (
-                                <div
-                                    key={test.id}
-                                    className="p-2 hover:bg-blue-50 cursor-pointer flex justify-between items-center"
-                                    onClick={() => addTest(test)}
-                                >
-                                    <span>{test.test_name}</span>
-                                    <span className="text-green-600 font-semibold">₹{test.rate}</span>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            </div>
+    <div className="space-y-5">
+        {/* Search / Selector */}
+        <div className="relative">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+                Investigation Tests
+            </label>
 
-            {selectedTests.length > 0 && (
-                <div className="border rounded-md p-4 bg-gray-50">
-                    <h4 className="font-semibold mb-3 text-gray-700">Selected Tests</h4>
-                    <div className="space-y-2">
-                        {selectedTests.map(test => (
-                            <div key={test.id} className="flex items-center justify-between bg-white p-2 rounded border">
-                                <div className="flex-1">
-                                    <span className="font-medium">{test.test_name}</span>
-                                    <span className="text-sm text-gray-500 ml-2">@ ₹{test.rate}</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <div className="flex items-center gap-2">
-                                        <label className="text-xs text-gray-600">Qty:</label>
-                                        <input
-                                            type="number"
-                                            min="1"
-                                            className="w-16 p-1 border rounded text-center"
-                                            value={test.quantity}
-                                            onChange={(e) => updateQuantity(test.id, e.target.value)}
-                                        />
-                                    </div>
-                                    <span className="font-semibold text-green-600 w-20 text-right">
-                                        ₹{test.rate * test.quantity}
-                                    </span>
-                                    <button
-                                        type="button"
-                                        className="text-red-600 hover:text-red-800 font-bold"
-                                        onClick={() => removeTest(test.id)}
-                                    >
-                                        ✕
-                                    </button>
-                                </div>
+            <input
+                type="text"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                placeholder="Type to search investigation tests..."
+                value={searchTerm}
+                onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setShowDropdown(true);
+                }}
+                onFocus={() => setShowDropdown(true)}
+            />
+
+            {showDropdown && (
+                <div className="absolute z-20 w-full mt-1 bg-white border rounded-lg shadow-lg max-h-64 overflow-y-auto">
+                    {filteredTests.length === 0 ? (
+                        <div className="p-3 text-sm text-gray-500 text-center">
+                            No tests found
+                        </div>
+                    ) : (
+                        filteredTests.map(test => (
+                            <div
+                                key={test.id}
+                                onClick={() => addTest(test)}
+                                className="px-4 py-2 flex justify-between items-center hover:bg-blue-50 cursor-pointer transition"
+                            >
+                                <span className="font-medium text-gray-700">
+                                    {test.test_name}
+                                </span>
+                                <span className="text-sm font-semibold text-green-600">
+                                    NPR {test.rate}
+                                </span>
                             </div>
-                        ))}
-                    </div>
-                    <div className="mt-3 pt-3 border-t flex justify-between items-center">
-                        <span className="font-bold text-gray-700">Investigation Subtotal:</span>
-                        <span className="font-bold text-lg text-green-600">NRP {calculateTotal()}</span>
-                    </div>
+                        ))
+                    )}
                 </div>
             )}
         </div>
-    );
+
+        {/* Selected Tests */}
+        {selectedTests.length > 0 && (
+            <div className="bg-gray-50 border rounded-lg p-4 space-y-3">
+                <h4 className="font-semibold text-gray-700">
+                    Selected Investigations
+                </h4>
+
+                {selectedTests.map(test => (
+                    <div
+                        key={test.id}
+                        className="bg-white border rounded-lg p-3 flex justify-between items-center"
+                    >
+                        {/* Test Info */}
+                        <div>
+                            <p className="font-medium text-gray-800">
+                                {test.test_name}
+                            </p>
+                            <p className="text-sm text-gray-500">
+                                NPR {test.rate} / test
+                            </p>
+                        </div>
+
+                        {/* Controls */}
+                        <div className="flex items-center gap-4">
+                            {/* Quantity */}
+                            <div className="flex items-center border rounded">
+                                <button
+                                    type="button"
+                                    className="px-2 py-1 text-gray-600 hover:bg-gray-100"
+                                    onClick={() =>
+                                        updateQuantity(test.id, test.quantity - 1)
+                                    }
+                                >
+                                    −
+                                </button>
+                                <span className="px-3 text-sm font-medium">
+                                    {test.quantity}
+                                </span>
+                                <button
+                                    type="button"
+                                    className="px-2 py-1 text-gray-600 hover:bg-gray-100"
+                                    onClick={() =>
+                                        updateQuantity(test.id, test.quantity + 1)
+                                    }
+                                >
+                                    +
+                                </button>
+                            </div>
+
+                            {/* Price */}
+                            <span className="w-24 text-right font-semibold text-green-600">
+                                NPR {test.rate * test.quantity}
+                            </span>
+
+                            {/* Remove */}
+                            <button
+                                type="button"
+                                onClick={() => removeTest(test.id)}
+                                className="text-red-500 hover:text-red-700 text-lg"
+                            >
+                                ×
+                            </button>
+                        </div>
+                    </div>
+                ))}
+
+                {/* Subtotal */}
+                <div className="pt-3 mt-3 border-t flex justify-between items-center">
+                    <span className="font-semibold text-gray-700">
+                        Investigation Total
+                    </span>
+                    <span className="text-xl font-bold text-green-700">
+                        NPR {calculateTotal()}
+                    </span>
+                </div>
+            </div>
+        )}
+    </div>
+);
+
 };
 
 export default InvestigationSelector;

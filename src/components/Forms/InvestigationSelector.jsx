@@ -124,7 +124,7 @@ const InvestigationSelector = ({ selectedTests, onTestsChange }) => {
                     </div>
                     <div className="mt-3 pt-3 border-t flex justify-between items-center">
                         <span className="font-bold text-gray-700">Investigation Subtotal:</span>
-                        <span className="font-bold text-lg text-green-600">₹{calculateTotal()}</span>
+                        <span className="font-bold text-lg text-green-600">NRP {calculateTotal()}</span>
                     </div>
                 </div>
             )}

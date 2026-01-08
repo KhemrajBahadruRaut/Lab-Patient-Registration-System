@@ -11,7 +11,7 @@ const Sidebar = () => {
     const isActive = (path) => location.pathname === path;
 
     return (
-        <div className="bg-slate-800 text-white w-64 min-h-screen flex flex-col transition-all duration-300">
+        <div className="bg-slate-800 text-white w-64 h-full flex flex-col transition-all duration-300 overflow-y-auto flex-shrink-0">
             <div className="p-4 mb-4 border-b border-slate-700">
                 <h3 className="text-2xl font-bold text-blue-400">Paschimanchal CMS</h3>
             </div>

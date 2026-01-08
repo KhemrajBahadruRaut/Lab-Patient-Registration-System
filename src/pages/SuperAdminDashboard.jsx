@@ -164,33 +164,33 @@ const SuperAdminDashboard = () => {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4">
             <h1 className="text-3xl font-bold text-gray-800">Super Admin Dashboard</h1>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="bg-white p-6 rounded-lg shadow border border-l-4 border-l-blue-500 flex items-center justify-between">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="bg-white p-6 rounded-lg shadow border border-l-2 border-l-blue-500 flex items-center justify-between">
                     <div>
                         <p className="text-gray-500 text-sm">Total Patients</p>
                         <h3 className="text-2xl font-bold">{stats.patients}</h3>
                     </div>
                     <FaUsers className="text-blue-500 text-3xl" />
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow border border-l-4 border-l-green-500 flex items-center justify-between">
+                <div className="bg-white p-6 rounded-lg shadow border border-l-2 border-l-green-500 flex items-center justify-between">
                     <div>
                         <p className="text-gray-500 text-sm">Total Visits</p>
                         <h3 className="text-2xl font-bold">{stats.visits}</h3>
                     </div>
                     <FaHospital className="text-green-500 text-3xl" />
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow border border-l-4 border-l-purple-500 flex items-center justify-between">
+                <div className="bg-white p-6 rounded-lg shadow border border-l-2 border-l-purple-500 flex items-center justify-between">
                     <div>
                         <p className="text-gray-500 text-sm">Active Doctors</p>
                         <h3 className="text-2xl font-bold">{stats.doctors}</h3>
                     </div>
                     <FaUserMd className="text-purple-500 text-3xl" />
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow border border-l-4 border-l-orange-500 flex items-center justify-between">
+                <div className="bg-white p-6 rounded-lg shadow border border-l-2 border-l-orange-500 flex items-center justify-between">
                     <div>
                         <p className="text-gray-500 text-sm">Departments</p>
                         <h3 className="text-2xl font-bold">{stats.departments}</h3>

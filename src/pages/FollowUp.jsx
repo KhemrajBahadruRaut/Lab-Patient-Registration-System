@@ -3,6 +3,7 @@ import api from "../utils/api";
 import PatientSearch from "../components/Forms/PatientSearch";
 
 import InvestigationSelector from "../components/Forms/InvestigationSelector";
+import toast from "react-hot-toast";
 
 const FollowUp = () => {
     const [patient, setPatient] = useState(null);
@@ -16,7 +17,6 @@ const FollowUp = () => {
         notes: ""
     });
     const [selectedInvestigations, setSelectedInvestigations] = useState([]);
-    const [message, setMessage] = useState(null);
 
     useEffect(() => {
         // Load departments for the dropdown
@@ -81,7 +81,7 @@ const FollowUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!patient) return alert("Please select a patient");
+        if (!patient) return toast.error("Please select a patient");
 
         try {
             const payload = {
@@ -89,8 +89,9 @@ const FollowUp = () => {
                 patient_id: patient.id,
                 investigations: selectedInvestigations
             };
+
             const res = await api.post("/opd/followup.php", payload);
-            setMessage({ type: "success", text: `Follow-up Registered! Visit ID: ${res.data.visit_id}` });
+            toast.success(`Follow-up Registered! Visit ID: ${res.data.visit_id}`);
             setPatient(null);
             setFormData({ 
                 department_id: "", 
@@ -101,7 +102,8 @@ const FollowUp = () => {
             });
             setSelectedInvestigations([]);
         } catch (err) {
-            setMessage({ type: "error", text: "Registration Failed" });
+            toast.error("Registration Failed");
+            console.error(err);
         }
     };
 
@@ -109,11 +111,7 @@ const FollowUp = () => {
         <div>
             <h1 className="text-2xl font-bold mb-6">Follow-up Registration</h1>
             
-            {message && (
-                <div className={`p-4 mb-4 rounded ${message.type === 'error' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
-                    {message.text}
-                </div>
-            )}
+
 
             <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">
                  <div className="bg-white p-6 rounded shadow border">

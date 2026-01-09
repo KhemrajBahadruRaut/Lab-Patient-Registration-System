@@ -3,6 +3,7 @@ import api from "../utils/api";
 import PatientSearch from "../components/Forms/PatientSearch";
 import PrintBill from "../components/PrintBill";
 import InvestigationSelector from "../components/Forms/InvestigationSelector";
+import toast from "react-hot-toast";
 
 const OPDRegistration = () => {
     const [patient, setPatient] = useState(null);
@@ -20,7 +21,6 @@ const OPDRegistration = () => {
         notes: ""
     });
     const [selectedInvestigations, setSelectedInvestigations] = useState([]);
-    const [message, setMessage] = useState(null);
     const [showPrintBill, setShowPrintBill] = useState(false);
     const [lastVisit, setLastVisit] = useState(null);
 
@@ -62,7 +62,7 @@ const OPDRegistration = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!patient) return alert("Please select a patient");
+        if (!patient) return toast.error("Please select a patient");
 
         try {
             const investigationTotal = selectedInvestigations.reduce(
@@ -97,7 +97,21 @@ const OPDRegistration = () => {
                 notes: formData.notes
             });
             
-            setMessage({ type: "success", text: `OPD Ticket Generated! Visit ID: ${res.data.visit_id}` });
+
+            
+            toast.success(
+                <div>
+                     OPD Ticket Generated! Visit ID: {res.data.visit_id}
+                     <button 
+                        onClick={() => setShowPrintBill(true)}
+                        className="ml-2 underline font-bold"
+                     >
+                        Print Now
+                     </button>
+                </div>,
+                { duration: 5000 }
+            );
+
             setFormData({
                 department_id: "",
                 doctor_id: "",
@@ -114,7 +128,7 @@ const OPDRegistration = () => {
         } catch (err) {
             console.error("Registration Error:", err);
             const errorMsg = err.response?.data?.message || err.message || "Registration Failed";
-            setMessage({ type: "error", text: errorMsg });
+            toast.error(errorMsg);
         }
     };
 
@@ -122,22 +136,6 @@ const OPDRegistration = () => {
         <div>
             <h1 className="text-2xl font-bold mb-6">OPD Registration</h1>
             
-            {message && (
-                <div className={`p-4 mb-4 rounded ${message.type === 'error' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
-                    <div className="flex justify-between items-center">
-                        <span>{message.text}</span>
-                        {message.type === 'success' && lastVisit && (
-                            <button
-                                onClick={() => setShowPrintBill(true)}
-                                className="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-semibold"
-                            >
-                                Print Bill
-                            </button>
-                        )}
-                    </div>
-                </div>
-            )}
-
             {showPrintBill && lastVisit && (
                 <PrintBill 
                     visitData={lastVisit} 

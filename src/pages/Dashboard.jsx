@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import api from "../utils/api";
 import PrintBill from "../components/PrintBill";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
     const { user, logout } = useAuth();
@@ -133,7 +134,7 @@ const Dashboard = () => {
                                                         setShowPrintBill(true);
                                                     } catch (err) {
                                                         console.error("Failed to load visit details", err);
-                                                        alert("Failed to load visit details for printing.");
+                                                        toast.error("Failed to load visit details for printing.");
                                                     }
                                                 }}
                                                 className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-xs font-semibold"

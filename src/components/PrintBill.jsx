@@ -98,7 +98,7 @@ const PrintBill = ({ visitData, onClose }) => {
 
                     {/* Totals */}
                     <div className="text-right mb-2">
-                        <p className="text-sm font-bold border-t-2 border-black pt-1">Grand Total: Rs. {visitData.total_amount}.00</p>
+                        <p className="text-sm font-bold border-t-2 border-black pt-1">Grand Total: Rs. {parseFloat(visitData.total_amount).toFixed(2)}</p>
                     </div>
 
                     {/* Footer */}

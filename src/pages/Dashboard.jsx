@@ -126,9 +126,15 @@ const Dashboard = () => {
                                         <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">Rs. {visit.total_amount}</td>
                                         <td className="px-6 py-2 whitespace-nowrap text-sm">
                                             <button
-                                                onClick={() => {
-                                                    setSelectedVisit(visit);
-                                                    setShowPrintBill(true);
+                                                onClick={async () => {
+                                                    try {
+                                                        const res = await api.get(`/visits/get_by_id.php?id=${visit.id}`);
+                                                        setSelectedVisit(res.data);
+                                                        setShowPrintBill(true);
+                                                    } catch (err) {
+                                                        console.error("Failed to load visit details", err);
+                                                        alert("Failed to load visit details for printing.");
+                                                    }
                                                 }}
                                                 className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-xs font-semibold"
                                             >

@@ -112,7 +112,9 @@ const OPDRegistration = () => {
             setSelectedInvestigations([]);
             setPatient(null);
         } catch (err) {
-            setMessage({ type: "error", text: "Registration Failed" });
+            console.error("Registration Error:", err);
+            const errorMsg = err.response?.data?.message || err.message || "Registration Failed";
+            setMessage({ type: "error", text: errorMsg });
         }
     };
 

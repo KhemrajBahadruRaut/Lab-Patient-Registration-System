@@ -49,24 +49,50 @@ const PrintBill = ({ visitData, onClose }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {visitData.registration_charge && parseFloat(visitData.registration_charge) > 0 && (
-                                <tr>
-                                    <td className="py-1 px-1">1</td>
-                                    <td className="py-1 px-1">{visitData.registration_desc || 'Registration Charge'}</td>
-                                    <td className="text-right py-1 px-1">Rs. {parseFloat(visitData.registration_charge).toFixed(2)}</td>
-                                    <td className="text-right py-1 px-1">1.00</td>
-                                    <td className="text-right py-1 px-1">Rs. {parseFloat(visitData.registration_charge).toFixed(2)}</td>
-                                </tr>
-                            )}
-                            {visitData.opd_charge && parseFloat(visitData.opd_charge) > 0 && (
-                                <tr>
-                                    <td className="py-1 px-1">{visitData.registration_charge && parseFloat(visitData.registration_charge) > 0 ? '2' : '1'}</td>
-                                    <td className="py-1 px-1">{visitData.opd_desc || 'OPD Charge'}</td>
-                                    <td className="text-right py-1 px-1">Rs. {parseFloat(visitData.opd_charge).toFixed(2)}</td>
-                                    <td className="text-right py-1 px-1">1.00</td>
-                                    <td className="text-right py-1 px-1">Rs. {parseFloat(visitData.opd_charge).toFixed(2)}</td>
-                                </tr>
-                            )}
+                            {(() => {
+                                let sn = 1;
+                                const rows = [];
+
+                                if (visitData.registration_charge && parseFloat(visitData.registration_charge) > 0) {
+                                    rows.push(
+                                        <tr key="reg">
+                                            <td className="py-1 px-1">{sn++}</td>
+                                            <td className="py-1 px-1">{visitData.registration_desc || 'Registration Charge'}</td>
+                                            <td className="text-right py-1 px-1">Rs. {parseFloat(visitData.registration_charge).toFixed(2)}</td>
+                                            <td className="text-right py-1 px-1">1.00</td>
+                                            <td className="text-right py-1 px-1">Rs. {parseFloat(visitData.registration_charge).toFixed(2)}</td>
+                                        </tr>
+                                    );
+                                }
+
+                                if (visitData.opd_charge && parseFloat(visitData.opd_charge) > 0) {
+                                    rows.push(
+                                        <tr key="opd">
+                                            <td className="py-1 px-1">{sn++}</td>
+                                            <td className="py-1 px-1">{visitData.opd_desc || 'OPD Charge'}</td>
+                                            <td className="text-right py-1 px-1">Rs. {parseFloat(visitData.opd_charge).toFixed(2)}</td>
+                                            <td className="text-right py-1 px-1">1.00</td>
+                                            <td className="text-right py-1 px-1">Rs. {parseFloat(visitData.opd_charge).toFixed(2)}</td>
+                                        </tr>
+                                    );
+                                }
+
+                                if (visitData.investigations && visitData.investigations.length > 0) {
+                                    visitData.investigations.forEach((test, index) => {
+                                        rows.push(
+                                            <tr key={`inv-${index}`}>
+                                                <td className="py-1 px-1">{sn++}</td>
+                                                <td className="py-1 px-1">{test.test_name}</td>
+                                                <td className="text-right py-1 px-1">Rs. {parseFloat(test.rate).toFixed(2)}</td>
+                                                <td className="text-right py-1 px-1">{parseFloat(test.quantity).toFixed(2)}</td>
+                                                <td className="text-right py-1 px-1">Rs. {(parseFloat(test.rate) * parseFloat(test.quantity)).toFixed(2)}</td>
+                                            </tr>
+                                        );
+                                    });
+                                }
+
+                                return rows;
+                            })()}
                         </tbody>
                     </table>
 
@@ -84,7 +110,7 @@ const PrintBill = ({ visitData, onClose }) => {
                 </div>
             </div>
 
-            {/* Screen-only modal - NO BLACK BACKGROUND */}
+            {/* screen modal */}
             <div className="print:hidden fixed inset-0 bg-white bg-opacity-95 flex items-center justify-center z-50">
                 <div className="bg-white rounded-lg shadow-2xl max-w-md w-full mx-4 border-2 border-gray-300">
                     <div className="p-6">

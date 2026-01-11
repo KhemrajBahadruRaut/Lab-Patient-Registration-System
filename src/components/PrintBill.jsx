@@ -141,43 +141,48 @@ const PrintBill = ({ visitData, onClose }) => {
 
             {/* Print Styles */}
             <style jsx>{`
-                @media print {
-                    @page {
-                        size: A5;
-                        margin: 8mm;
-                    }
-                    
-                    html, body {
-                        margin: 0 !important;
-                        padding: 0 !important;
-                        background: white !important;
-                    }
-                    
-                    body * {
-                        visibility: hidden;
-                    }
-                    
-                    .print-bill,
-                    .print-bill * {
-                        visibility: visible;
-                    }
-                    
-                    .print-bill {
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        width: 100%;
-                        background: white;
-                    }
-                    
-                    .bill-content {
-                        font-family: Arial, sans-serif;
-                        color: black;
-                        font-size: 10px;
-                        line-height: 1.3;
-                    }
-                }
-            `}</style>
+  @media print {
+    @page {
+      size: A5;
+      margin-top: 3cm;
+      margin-right: 14mm;
+      margin-bottom: 8mm;
+      margin-left: 14mm;
+      
+    }
+
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      background: white !important;
+    }
+
+    body * {
+      visibility: hidden;
+    }
+
+    .print-bill,
+    .print-bill * {
+      visibility: visible;
+    }
+
+    .print-bill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      background: white;
+    }
+
+    .bill-content {
+      font-family: Arial, sans-serif;
+      color: black;
+      font-size: 10px;
+      line-height: 1.3;
+    }
+  }
+`}</style>
+
         </>
     );
 };
